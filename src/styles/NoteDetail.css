@@ -1,0 +1,214 @@
+.note-detail{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.header{
+    display: flex;
+    justify-content: start;
+    .header {
+        position: fixed;  /* 固定定位 */
+        top: 0;          /* 固定在顶部 */
+        left: 0;         /* 从左边开始 */
+        width: 100%;     /* 宽度100% */
+        padding: 1rem;   /* 添加一些内边距 */
+        z-index: 100;    /* 确保在其他内容之上 */
+    }
+}
+.note-detail-container {
+    flex-direction: column;
+    margin-top: 60px;  /* 给header的高度留出空间 */
+    display: flex;          /* 添加 flex 布局 */
+    align-items: center;    /* 水平居中 */
+}
+.note-detail-container h1{
+    text-align: center;
+    margin: 0 auto;         /* 水平居中 */
+    padding: 20px 0;        /* 添加一些上下间距 */
+}
+
+.header img {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    margin-left: 1rem;  /* 给图标添加一些左边距 */
+}
+
+.markdown-area {
+    width: 90%;                /* 使用90%的视窗宽度，两边留有空间 */
+    min-height: 80vh;         /* 至少占据80%的视窗高度 */
+    padding: 2rem;            /* 添加内边距 */
+    border: none;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+    box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+    background-color: #343739;
+    
+}
+
+/* 可以添加悬停效果 */
+.markdown-area:hover {
+    box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+}
+
+/* 添加媒体查询实现响应式 */
+@media screen and (max-width: 768px) {
+    .markdown-area {
+        width: 95%;           /* 在小屏幕上占据更多宽度 */
+        padding: 1rem;        /* 减小内边距 */
+    }
+}
+.tools{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.markdown-editor {
+    width: 100%;
+    min-height: 70vh;
+    padding: 1rem;
+    background-color: transparent;  /* 透明背景，继承父元素背景色 */
+    color: #f0f0f0;                /* 浅色文字，便于深色背景阅读 */
+    border: none;                  /* 移除边框 */
+    outline: none;                 /* 移除焦点轮廓 */
+    font-family: 'Monaco', monospace;  /* 使用等宽字体 */
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: none;                  /* 禁用手动调整大小 */
+}
+
+.markdown-preview {
+    width: 100%;
+    min-height: 70vh;
+    padding: 1rem;
+    color: #dcddde;              /* 更柔和的文字颜色 */
+    font-family: 'Monaco', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+/* Markdown 预览区域的样式优化 */
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+    color: #7aa2f7;             /* Obsidian风格的标题颜色 */
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 1.4em 0 0.4em;
+}
+
+.markdown-preview h1 {
+    font-size: 2em;
+    border-bottom: 1px solid #4a4b4d;  /* 标题下划线 */
+    padding-bottom: 0.3em;
+}
+
+.markdown-preview h2 {
+    font-size: 1.5em;
+    border-bottom: 1px solid #4a4b4d;
+    padding-bottom: 0.2em;
+}
+
+.markdown-preview h3 { font-size: 1.3em; }
+.markdown-preview h4 { font-size: 1.2em; }
+
+.markdown-preview p {
+    margin: 0.8em 0;
+    line-height: 1.75;
+}
+
+/* 列表样式 */
+.markdown-preview ul,
+.markdown-preview ol {
+    margin: 0.4em 0;
+    padding-left: 1.5em;
+}
+
+.markdown-preview li {
+    margin: 0.2em 0;
+}
+
+/* 引用块样式 */
+.markdown-preview blockquote {
+    margin: 1em 0;
+    padding: 0.2em 1em;
+    border-left: 3px solid #4a4b4d;
+    background-color: #2a2d2e;
+    color: #a6acb9;
+}
+
+/* 代码块样式 */
+.markdown-preview code {
+    background-color: #2a2d2e;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Monaco', monospace;
+    font-size: 0.9em;
+    color: #e06c75;             /* 代码文字颜色 */
+}
+
+.markdown-preview pre {
+    background-color: #2a2d2e;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+.markdown-preview pre code {
+    background-color: transparent;
+    padding: 0;
+    color: #abb2bf;            /* 代码块内的代码颜色 */
+}
+
+/* 链接样式 */
+.markdown-preview a {
+    color: #61afef;           /* Obsidian风格的链接颜色 */
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.markdown-preview a:hover {
+    border-bottom-color: #61afef;
+    text-decoration: none;
+}
+
+/* 表格样式 */
+.markdown-preview table {
+    border-collapse: collapse;
+    margin: 1em 0;
+    width: 100%;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+    border: 1px solid #4a4b4d;
+    padding: 0.5em 1em;
+}
+
+.markdown-preview th {
+    background-color: #2a2d2e;
+    font-weight: 600;
+}
+
+/* 水平线样式 */
+.markdown-preview hr {
+    border: none;
+    border-top: 1px solid #4a4b4d;
+    margin: 2em 0;
+}
+
+/* 图片样式 */
+.markdown-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1em 0;
+}
