@@ -93,3 +93,41 @@ h1 {
   height: 35px;
   cursor: pointer;
 }
+
+.search-results {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.search-results p {
+  color: #f9d3b4;
+  font-size: 0.9rem;
+}
+
+.search-results button, .empty button {
+  background-color: transparent;
+  border: 1px solid #f9d3b4;
+  color: #f9d3b4;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.search-results button:hover, .empty button:hover {
+  background-color: rgba(249, 211, 180, 0.1);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  padding: 40px 0;
+}

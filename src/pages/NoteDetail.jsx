@@ -1,58 +1,120 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import Back from '../assets/back.svg'
-import '../styles/NoteDetail.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import Back from '../assets/back.svg';
+import { getNote, saveNote } from '../services/dataStore';
+import '../styles/NoteDetail.css';
 
 function NoteDetail() {
-    const { id } = useParams();
+    const { id } = useParams();  // 获取URL中的笔记id
     const navigate = useNavigate();
     const location = useLocation();
-    const note = location.state?.note || { text: '' }; // 
-    const [markdown, setMarkdown] = useState(note.text);
-    const [isEditMarkdown,setIsEditMarkdown]=useState(true);
+    const [loading, setLoading] = useState(true);
+    
+    // 从location.state中获取搜索状态
+    const returnToSearch = location.state?.returnToSearch;
+    const searchKeyword = location.state?.searchKeyword;
 
-    function handlerChangeMarkdown(e){
-        setMarkdown(e.target.value)
+    // 使用空对象或路由状态作为初始值
+    const [note, setNote] = useState(location.state?.note || { 
+        id: parseInt(id),
+        title: '',
+        createTime: new Date().toISOString().split('T')[0],
+        text: ''
+    });
+    const [isEditMarkdown, setIsEditMarkdown] = useState(true);
+
+    useEffect(() => {
+        const loadNote = async () => {
+            try {
+                const currentNote = await getNote(parseInt(id));
+                if (currentNote) {
+                    setNote(currentNote);
+                }
+            } catch (error) {
+                console.error('加载笔记失败:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadNote();
+    }, [id]);
+
+    if (loading) return <div>加载中...</div>;
+
+    // 处理文本变化并实时保存
+    function handlerChangeMarkdown(e) {
+        const updatedNote = {
+            ...note,
+            text: e.target.value
+        };
+        setNote(updatedNote);  // 更新本地状态
+        saveNote(updatedNote); // 保存到 localStorage
     }
+
+    // 处理AI按钮点击
+    const handleAI = () => {
+        console.log('一键AI');
+    };
+
+    // 处理返回按钮点击
+    const handleBack = () => {
+        if (returnToSearch && searchKeyword) {
+            // 返回到搜索结果页面，但不传递搜索结果
+            // 而是让Home组件重新执行搜索
+            navigate('/', { 
+                state: { 
+                    isSearching: true, 
+                    searchKeyword,
+                    // 不传递notes，让Home组件重新搜索
+                }
+            });
+        } else {
+            // 普通返回
+            navigate('/');
+        }
+    };
+
     return (
         <div className="note-detail">
+            {/* 顶部导航栏 */}
             <div className='header'>
-              <img src={Back}
-              onClick={() => navigate('/')}
-              alt='back'
-            />
+                <img 
+                    src={Back}
+                    onClick={handleBack}
+                    alt='back'
+                />
             </div>
             
-           <div className='note-detail-container'>
-                <h1>笔记 {id} 的详情</h1>
-                <br />
+            {/* 笔记内容区域 */}
+            <div className='note-detail-container'>
+                
                 <div className='markdown-area'>
+                    {/* 工具栏 */}
                     <div className='tools'>
-                    <button onClick={()=>{setIsEditMarkdown(!isEditMarkdown)}}>切换</button>
+                        <button onClick={handleAI}>一键AI</button>
+                        <button onClick={() => setIsEditMarkdown(!isEditMarkdown)}>
+                            {isEditMarkdown ? '预览' : '编辑'}
+                        </button>
                     </div>
                 
-                    {isEditMarkdown?
-                    (
-                     <textarea
-                        className="markdown-editor"
-                        value={markdown}
-                        onChange={handlerChangeMarkdown}
-                        placeholder="输入 Markdown..."
-                    />
-                    )
-                    :(
-                     <div className="markdown-preview">
-                        <ReactMarkdown>{markdown}</ReactMarkdown>
-                     </div>
-
+                    {/* 编辑器/预览切换 */}
+                    {isEditMarkdown ? (
+                        <textarea
+                            className="markdown-editor"
+                            value={note.text}
+                            onChange={handlerChangeMarkdown}
+                            placeholder="输入 Markdown..."
+                        />
+                    ) : (
+                        <div className="markdown-preview">
+                            <ReactMarkdown>{note.text}</ReactMarkdown>
+                        </div>
                     )}
                 </div>
-               
-           </div>
-            
+            </div>
         </div>
-    )
+    );
 }
 
-export default NoteDetail
+export default NoteDetail;
