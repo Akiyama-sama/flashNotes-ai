@@ -3,7 +3,8 @@ const initialNotes=[
       id:0,
       title:'',
       createTime:'2025-2-20',
-      text:'这是我的第一篇笔记'
+      text:'这是我的第一篇笔记',
+      aiContent:''
     }
   ];
 //从localstorage获取本地所有笔记的方法
@@ -55,7 +56,8 @@ const newNote = () => {
       id: newId,
       title: '',
       createTime: new Date().toISOString().split('T')[0],
-      text: '这是一个新笔记'
+      text: '这是一个新笔记',
+      aiContent:''
     };
     
     // 将新笔记添加到笔记列表

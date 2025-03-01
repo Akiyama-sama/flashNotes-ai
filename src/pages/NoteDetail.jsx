@@ -4,12 +4,14 @@ import ReactMarkdown from 'react-markdown';
 import Back from '../assets/back.svg';
 import { getNote, saveNote } from '../services/dataStore';
 import '../styles/NoteDetail.css';
-
+import AICard from '../components/AICard';
+import noteAnalysis from '../services/aiService';
 function NoteDetail() {
     const { id } = useParams();  // 获取URL中的笔记id
     const navigate = useNavigate();
     const location = useLocation();
     const [loading, setLoading] = useState(true);
+   
     
     // 从location.state中获取搜索状态
     const returnToSearch = location.state?.returnToSearch;
@@ -20,10 +22,14 @@ function NoteDetail() {
         id: parseInt(id),
         title: '',
         createTime: new Date().toISOString().split('T')[0],
-        text: ''
+        text: '',
+        aiContent:''
     });
     const [isEditMarkdown, setIsEditMarkdown] = useState(true);
+    const [isAIActive, setIsAIActive] = useState(note.aiContent && note.aiContent.length !== 0);
+    const [isAILoading, setIsAILoading] = useState(false);
 
+    
     useEffect(() => {
         const loadNote = async () => {
             try {
@@ -53,8 +59,23 @@ function NoteDetail() {
     }
 
     // 处理AI按钮点击
-    const handleAI = () => {
-        console.log('一键AI');
+    const handleAI = async () => {
+        setIsAIActive(true);
+        setIsAILoading(true);
+        
+        try {
+            const result = await noteAnalysis(note.text);
+            const updatedNote = {
+                ...note,
+                aiContent: result
+            };
+            setNote(updatedNote);  // 更新本地状态
+            saveNote(updatedNote); // 保存到 localStorage
+        } catch (error) {
+            console.error('AI分析失败:', error);
+        } finally {
+            setIsAILoading(false);
+        }
     };
 
     // 处理返回按钮点击
@@ -92,8 +113,17 @@ function NoteDetail() {
                 <div className='markdown-area'>
                     {/* 工具栏 */}
                     <div className='tools'>
-                        <button onClick={handleAI}>一键AI</button>
-                        <button onClick={() => setIsEditMarkdown(!isEditMarkdown)}>
+                        <button 
+                            className='button' 
+                            onClick={handleAI} 
+                            disabled={isAILoading}
+                        >
+                            {isAILoading ? '分析中...' : '一键AI'}
+                        </button>
+                        <button 
+                            className='button' 
+                            onClick={() => setIsEditMarkdown(!isEditMarkdown)}
+                        >
                             {isEditMarkdown ? '预览' : '编辑'}
                         </button>
                     </div>
@@ -113,6 +143,12 @@ function NoteDetail() {
                     )}
                 </div>
             </div>
+            {/* AI卡片显示区域 */}
+            {isAIActive && 
+                <div className='ai-container'>
+                    <AICard aiContent={note.aiContent}/>
+                </div>
+            }
         </div>
     );
 }

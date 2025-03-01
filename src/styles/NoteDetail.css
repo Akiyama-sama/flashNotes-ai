@@ -1,25 +1,26 @@
 .note-detail{
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* 保持整个容器至少占满视口高度 */
 }
 .header{
     display: flex;
     justify-content: start;
-    .header {
-        position: fixed;  /* 固定定位 */
-        top: 0;          /* 固定在顶部 */
-        left: 0;         /* 从左边开始 */
-        width: 100%;     /* 宽度100% */
-        padding: 1rem;   /* 添加一些内边距 */
-        z-index: 100;    /* 确保在其他内容之上 */
-    }
+    position: fixed;  /* 固定定位 */
+    top: 0;          /* 固定在顶部 */
+    left: 0;         /* 从左边开始 */
+    width: 100%;     /* 宽度100% */
+    padding: 1rem;   /* 添加一些内边距 */
+    z-index: 100;    /* 确保在其他内容之上 */
 }
 .note-detail-container {
     flex-direction: column;
     margin-top: 60px;  /* 给header的高度留出空间 */
     display: flex;          /* 添加 flex 布局 */
     align-items: center;    /* 水平居中 */
+    min-height: 35vh;       /* 与markdown-area保持一致的最小高度 */
+    height: auto;           /* 高度自适应内容 */
+    padding-bottom: 2rem;   /* 底部添加一些间距 */
 }
 .note-detail-container h1{
     text-align: center;
@@ -36,14 +37,17 @@
 
 .markdown-area {
     width: 90%;                /* 使用90%的视窗宽度，两边留有空间 */
-    min-height: 80vh;         /* 至少占据80%的视窗高度 */
+    min-height: 35vh;         /* 修改为35vh */
+    height: auto;             /* 高度自适应内容 */
     padding: 2rem;            /* 添加内边距 */
     border: none;
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
     box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
     background-color: #343739;
-    
+    margin-bottom: 2rem;      /* 底部添加一些间距 */
+    display: flex;            /* 使用flex布局 */
+    flex-direction: column;   /* 垂直排列子元素 */
 }
 
 /* 可以添加悬停效果 */
@@ -61,11 +65,13 @@
 .tools{
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 1rem;      /* 工具栏与编辑区域之间的间距 */
 }
 
 .markdown-editor {
     width: 100%;
-    min-height: 70vh;
+    min-height: 35vh;         /* 修改为35vh */
+    flex-grow: 1;             /* 允许编辑器增长以填充可用空间 */
     padding: 1rem;
     background-color: transparent;  /* 透明背景，继承父元素背景色 */
     color: #f0f0f0;                /* 浅色文字，便于深色背景阅读 */
@@ -79,7 +85,8 @@
 
 .markdown-preview {
     width: 100%;
-    min-height: 70vh;
+    min-height: 35vh;         /* 修改为35vh */
+    flex-grow: 1;             /* 允许预览区域增长以填充可用空间 */
     padding: 1rem;
     color: #dcddde;              /* 更柔和的文字颜色 */
     font-family: 'Monaco', monospace;
@@ -88,6 +95,33 @@
     overflow-y: auto;
     white-space: pre-wrap;
     text-align: left;
+}
+
+.ai-container {
+    flex-direction: column;
+    display: flex;          /* 添加 flex 布局 */
+    align-items: center;    /* 水平居中 */
+    width: 100%;            /* 宽度100% */
+    padding-bottom: 1rem;   /* 减少底部间距 */
+    margin-top: -1rem;      /* 向上移动一点，与note-detail-container更紧凑 */
+}
+
+/* 移除这些样式，因为它们会与AICard.css冲突 */
+.ai-card {
+    width: 90%;                /* 使用90%的视窗宽度，两边留有空间 */
+    min-height: auto;          /* 改为auto，让内容决定高度 */
+    height: auto;              /* 高度自适应内容 */
+    margin-bottom: 1rem;       /* 减少底部间距 */
+}
+
+@media screen and (max-width: 768px) {
+    .ai-container {
+        padding-bottom: 0.5rem;
+    }
+    
+    .ai-card {
+        width: 95%;           /* 在小屏幕上占据更多宽度 */
+    }
 }
 
 /* Markdown 预览区域的样式优化 */

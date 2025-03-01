@@ -2,10 +2,9 @@
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
-
 
 @keyframes logo-spin {
   from {
@@ -21,19 +20,20 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+
 .notes-container {
   width: 100%;
-  margin-top: 3rem;
-
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   letter-spacing: 0.9px;
   background: linear-gradient(
     90deg,
@@ -44,53 +44,47 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   width: fit-content;
+  margin: 1rem auto;
 }
-.app {
-  padding: 4rem;
 
+.app {
+  padding: 1.5rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-h1 {
-  color: #333;
-  text-align: center;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
 .search {
-  width: 71%;
-  margin: 4rem 0 2rem;
-
+  width: 90%;
+  max-width: 600px;
+  margin: 1.5rem 0 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 1.5rem 1.75rem;
-  border-radius: 3rem;
+  padding: 0.8rem 1rem;
+  border-radius: 2rem;
   background: #1f2123;
-  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
-  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  -webkit-box-shadow: 3px 3px 5px #1c1d1f, -3px -3px 5px #222527;
+  box-shadow: 3px 3px 5px #1c1d1f, -3px -3px 5px #222527;
 }
 
 .search input {
   flex: 1;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: var(--font-raleway);
   font-weight: 500;
-  padding-right: 1rem;
-
+  padding-right: 0.5rem;
   outline: none;
   color: #a1a1a1;
   background: #1f2123;
 }
 
 .search img {
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
 }
 
@@ -99,7 +93,9 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
-  padding: 0 20px;
+  padding: 0 10px;
+  width: 90%;
+  max-width: 600px;
 }
 
 .search-results p {
@@ -116,6 +112,7 @@ h1 {
   cursor: pointer;
   font-size: 0.8rem;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .search-results button:hover, .empty button:hover {
@@ -130,4 +127,108 @@ h1 {
   gap: 15px;
   width: 100%;
   padding: 40px 0;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
+  .app {
+    padding: 1rem 0.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .search {
+    width: 95%;
+    padding: 0.7rem 0.8rem;
+    margin: 1rem 0 1rem;
+  }
+  
+  .search input {
+    font-size: 1rem;
+  }
+  
+  .search-results {
+    width: 95%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .search-results p {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  
+  .notes-container {
+    margin-top: 1rem;
+    gap: 8px;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .notes-container {
+    width: 100%;
+    margin-top: 1rem;
+    gap: 5px;
+    padding: 0 5px;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #root {
+    padding: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    margin: 0.8rem auto;
+  }
+  
+  .app {
+    padding: 0.8rem 0.3rem;
+  }
+  
+  .search {
+    margin: 0.8rem 0;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .search input {
+    font-size: 0.9rem;
+  }
+  
+  .search img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .notes-container {
+    width: 100%;
+    margin-top: 0.8rem;
+    gap: 4px;
+    padding: 0 4px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .notes-container {
+    padding: 0 3px;
+    gap: 3px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .notes-container {
+    padding: 0 2px;
+    gap: 2px;
+  }
+  
+  h1 {
+    font-size: 1.6rem;
+  }
 }

@@ -111,7 +111,7 @@ function Home() {
   return (
     <>
       <div className='app'>
-        <h1>flashNotes</h1>
+        <h1>FlashNotes</h1>
         <div className='search'>
           <input 
             type="text"
