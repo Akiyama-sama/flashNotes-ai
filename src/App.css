@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
+  background-color: rgb(36, 36, 36);
 }
 
 @keyframes logo-spin {
