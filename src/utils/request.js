@@ -2,7 +2,7 @@ import axios from 'axios';
 
 async function AI_API(noteText) {
     try {
-        const response = await axios.post('http://localhost:8000/api/ai/analyze', { noteText });
+        const response = await axios.post('http://47.109.99.107:8000/api/ai/analyze', { noteText });
         const result = response.data.content;
         console.log('AI响应成功');
         return result;
