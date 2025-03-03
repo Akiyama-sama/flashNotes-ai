@@ -56,7 +56,7 @@
 
 克隆到本地文件夹
 ```bash
-git clone https://github.com/Akiyama-sama/flashNotes-ai.git cd flashNotes-ai
+git clone https://github.com/Akiyama-sama/flashNotes-ai.git
 ```
 
 安装依赖
