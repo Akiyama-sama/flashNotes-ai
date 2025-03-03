@@ -11,6 +11,7 @@
 body {
   /* 固定深色背景，不随系统切换 */
   background-color: rgb(36, 36, 36) !important;
+  align-items: center;
 }
 
 @keyframes logo-spin {
