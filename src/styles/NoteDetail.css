@@ -2,9 +2,8 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    width: 100vw; /* 改为视口宽度 */
-    margin-left: calc(-50vw + 50%); /* 抵消根容器的padding */
-    margin-right: calc(-50vw + 50%); /* 抵消根容器的padding */
+    width: 85vw; /* 改为视口宽度 */
+   
     position: relative;
 }
 .header{
